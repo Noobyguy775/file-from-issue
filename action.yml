@@ -1,0 +1,7 @@
+name: 'file from issue'
+description: 'Generate a file from fields in an issue'
+author: 'nooby'
+
+runs:
+  using: node20
+  main: index.js
