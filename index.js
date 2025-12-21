@@ -8,7 +8,8 @@ try {
   const payload = JSON.stringify(github.context.payload, undefined, 2);
   core.info(payload);
   const sections = payload.issue.body.split('###')
-  core.info(sections.split('\n'))
+  core.info(payload.issue.body)
+  core.info(sections)
   process.exit()
 
   const author = payload.issue.issue_field_values.author
