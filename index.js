@@ -6,8 +6,10 @@ import sanitize from "sanitize-filename";
 
 try {
   const payload = JSON.stringify(github.context.payload, undefined, 2);
-    core.info(payload);
-    process.exit();
+  core.info(payload);
+  const sections = payload.issue.body.split('###')
+  core.info(sections.split('\n'))
+  process.exit()
 
   const author = payload.issue.issue_field_values.author
   const name = payload.issue.title
