@@ -5,11 +5,9 @@ import path from "node:path";
 import sanitize from "sanitize-filename";
 
 try {
-  const payload = JSON.stringify(github.context.payload, undefined, 2);
-  core.info(payload);
+  const payload = github.context.payload;
   const sections = payload.issue.body.split('###')
-  core.info(payload.issue.body)
-  core.info(sections)
+  core.info(JSON.stringify(sections))
   process.exit()
 
   const author = payload.issue.issue_field_values.author
