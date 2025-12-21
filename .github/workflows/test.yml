@@ -27,12 +27,12 @@ jobs:
         uses: peter-evans/create-pull-request@v8
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          title: 'Add ${{ github.event.issue.title }}'
+          title: 'Add pattern ${{ github.event.issue.title }}'
+          labels: 'new pattern'
           body: |
-            This Pull Request was automatically created from data provided in ${{ github.event.issue.number }}.
+            This Pull Request was automatically created from data provided in #${{ github.event.issue.number }}.
 
-            To add this pattern/path to the repoistry, merge it!
+            To add this pattern to the repository, merge it!
 
-            closes ${{ github.event.issue.number }}
-          head: 'issue-${{ github.event.issue.number }}'
+            closes #${{ github.event.issue.number }}
           base: 'main'
