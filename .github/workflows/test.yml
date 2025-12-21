@@ -22,7 +22,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           title: 'Add pattern ${{ github.event.issue.title }}'
           labels: 'new pattern'
-          branch: 'pattern/${{ github.event.issue.user.login }}-${{ github.event.issue.title }}-${{ github.event.issue.number }}'
+          branch: 'pattern/${{ github.event.issue.user.login }}-${{ github.event.issue.title }}'
           commit-message: 'Add pattern ${{ github.event.issue.title }}'
           body: |
             This Pull Request was automatically created from data provided in #${{ github.event.issue.number }}.
