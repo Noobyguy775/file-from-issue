@@ -6,14 +6,20 @@ import sanitize from "sanitize-filename";
 
 try {
   const payload = github.context.payload;
-  const sections = payload.issue.body.split('###')
-  core.info(JSON.stringify(sections))
-  process.exit()
+  const sections = payload.issue.body.split('###');
+  const fields = []
+  sections.shift() // since it'll always be empty
 
-  const author = payload.issue.issue_field_values.author
+  for (const section of sections) {
+    fields.push(
+        section.split('\n').shift().shift().join('\n').trim() // removes the first two lines and preserves the rest
+    )
+  }
+
   const name = payload.issue.title
-  const description = payload.issue.issue_field_values.description
-  const pattern = payload.issue.issue_field_values.pattern
+  const pattern = fields[1]
+  const author = fields[2]
+  const description = fields[3]
 
   const fileContent = [
     `/************************************************************************`,
