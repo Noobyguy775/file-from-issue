@@ -18,8 +18,6 @@ jobs:
       - name: Create new branch and add changes
         run: |
           git checkout -b pattern/${{ github.event.issue.user.login }}-${{ github.event.issue.title }}-${{ github.event.issue.number }}
-          git add .
-          git commit -m "Add pattern ${{ github.event.issue.title }}"
           git push origin HEAD
 
       - name: Create Pull Request
