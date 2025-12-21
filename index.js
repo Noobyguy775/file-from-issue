@@ -7,7 +7,7 @@ import sanitize from "sanitize-filename";
 try {
   const payload = JSON.stringify(github.context.payload, undefined, 2);
     core.info(payload);
-    return;
+    process.exit();
 
   const author = payload.issue.issue_field_values.author
   const name = payload.issue.title
