@@ -12,7 +12,7 @@ try {
   
   for (const section of sections) {
     const lines = section.trim().split('\n')
-    lines.shift()
+    lines.shift() // this is ugly but i dont care
     lines.shift()
     fields.push(lines.join('\n'))
   }
@@ -32,7 +32,8 @@ try {
     ` * @author ${author}`,
     ` ***********************************************************************/`,
     ``,
-    pattern
+    pattern,
+    ``
   ].join("\n");
 
   const identifier = sanitize(`${author}-${name}`)
