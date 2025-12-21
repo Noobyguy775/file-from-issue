@@ -18,9 +18,10 @@ jobs:
       - name: Create new branch
         run: |
           echo "Creating new branch"
-          BRANCH=pattern/${{ github.event.issue.title }}-${{ github.event.issue.number }}
+          BRANCH=pattern/${{ github.event.issue.author }}-${{ github.event.issue.title }}-${{ github.event.issue.number }}
+          git branch $BRANCH
           git checkout $BRANCH
-          echo "created branch '$BRANCH'"
+          echo "created + checked out branch '$BRANCH'"
 
       - name: Create Pull Request
         id: create_pr
