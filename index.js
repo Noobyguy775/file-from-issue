@@ -9,17 +9,21 @@ try {
   const sections = payload.issue.body.split('###');
   const fields = []
   sections.shift() // since it'll always be empty
-
+  
   for (const section of sections) {
-    fields.push(
-        section.split('\n').shift().shift().join('\n').trim() // removes the first two lines and preserves the rest
-    )
+    const lines = section.trim().split('\n')
+    lines.shift()
+    lines.shift()
+    fields.push(lines.join('\n'))
   }
 
   const name = payload.issue.title
-  const pattern = fields[1]
-  const author = fields[2]
-  const description = fields[3]
+  const author = fields[1]
+  const description = fields[2]
+
+  const ahkCodeblock = /```ahk(?<code>[\s|\S]*?)```/;
+
+  const pattern = ahkCodeblock.exec(fields[0]).groups.code.trim()
 
   const fileContent = [
     `/************************************************************************`,
@@ -31,7 +35,15 @@ try {
     pattern
   ].join("\n");
 
-  const filePath = path.join('/patterns/custom', sanitize(`${author}-${name}`))
+  const identifier = sanitize(`${author}-${name}`)
+
+  const folderPath = path.join('patterns/custom', identifier)
+
+  if (!fs.existsSync(folderPath)){
+    fs.mkdirSync(folderPath, { recursive: true });
+  }
+
+  const filePath = path.join(folderPath, `${identifier}.ahk`);
 
   fs.writeFileSync(filePath, fileContent);
   core.info(`File created at ${filePath}`);
