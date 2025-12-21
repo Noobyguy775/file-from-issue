@@ -15,14 +15,12 @@ jobs:
       - name: Generate File from Issue
         uses: ./ # Uses an action in the root directory
 
-      - name: Create new branch
+      - name: Create new branch and add changes
         run: |
-          echo "Creating new branch"
-          BRANCH=pattern/${{ github.event.issue.user.login }}-${{ github.event.issue.title }}-${{ github.event.issue.number }}
-          git checkout main
-          git pull origin main
-          git checkout -b $BRANCH
-          echo "created + checked out branch '$BRANCH'"
+          git checkout -b pattern/${{ github.event.issue.user.login }}-${{ github.event.issue.title }}-${{ github.event.issue.number }}
+          git add .
+          git commit -m "Add pattern ${{ github.event.issue.title }}"
+          git push origin HEAD
 
       - name: Create Pull Request
         id: create_pr
