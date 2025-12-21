@@ -1,0 +1,48 @@
+name: + New pattern
+description: Add a new pattern to this repoistry
+labels: ["new pattern"]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+      
+        This is the repoistry where Natro Macro stores and fetches patterns and paths confirmed to be safe by the developers. If you want to add a pattern to the list of safe imports, you are in the right place.
+        
+        The title of this issue should be name of your pattern. You do not need to upload your pattern, it will be created based on the information you give in this issue.
+
+  - type: checkboxes
+    attributes:
+      label: By adding your pattern to this repoistry, you agree to liscense your pattern under GNU GPL v3.0
+      description: You can read the license [here](blob/main/LICENSE)
+      options:
+        - label: I agree
+          required: true
+    validations:
+      required: true
+
+  - type: textarea
+    id: pattern
+    attributes:
+      label: "Paste in your pattern code here"
+      placeholder: |
+          nm_Walk(5, "FwdKey")
+          Sleep(1000)
+          ...
+      render: ahk
+    validations:
+      required: true
+
+  - type: input
+    id: author
+    attributes:
+      label: What is the name you want this pattern to be credited under?
+      description: People usually use their Discord or Roblox username. 
+    validations:
+      required: true
+  - type: input
+    id: description
+    attributes:
+      label: A short description for this pattern.
+    validations:
+      required: true

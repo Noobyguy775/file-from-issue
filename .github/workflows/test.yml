@@ -1,0 +1,38 @@
+name: Create PR from issue
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  create_pr:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v6.0.1
+
+      - name: Generate File from Issue
+        uses: ./ # Uses an action in the root directory
+
+      - name: Create new branch
+        run: |
+          echo "Creating new branch"
+          BRANCH=pattern/${{ github.event.issue.issue_field_values.author }}-${{ github.event.issue.title }}
+          git checkout $BRANCH
+          echo "created branch '$BRANCH'"
+
+      - name: Create Pull Request
+        id: create_pr
+        uses: peter-evans/create-pull-request@v8
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          title: 'Add ${{ github.event.issue.title }}'
+          body: |
+            This Pull Request was automatically created from data provided in ${{ github.event.issue.number }}.
+
+            To add this pattern/path to the repoistry, merge it!
+
+            closes ${{ github.event.issue.number }}
+          head: 'issue-${{ github.event.issue.number }}'
+          base: 'main'
